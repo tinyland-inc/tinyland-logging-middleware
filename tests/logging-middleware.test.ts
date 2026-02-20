@@ -1,5 +1,5 @@
 /**
- * Tests for @tinyland-inc/tinyland-logging-middleware
+ * Tests for @tummycrypt/tinyland-logging-middleware
  *
  * Covers:
  *  1. configure / getConfig / resetConfig  (5 tests)

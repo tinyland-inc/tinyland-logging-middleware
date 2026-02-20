@@ -1,5 +1,5 @@
 /**
- * @tinyland-inc/tinyland-logging-middleware
+ * @tummycrypt/tinyland-logging-middleware
  *
  * tRPC-compatible logging middleware with dependency-injected logger.
  *
@@ -9,7 +9,7 @@
  *   configure,
  *   loggingMiddleware,
  *   createLogger,
- * } from '@tinyland-inc/tinyland-logging-middleware';
+ * } from '@tummycrypt/tinyland-logging-middleware';
  *
  * // At application startup
  * configure({ logger: myStructuredLogger });

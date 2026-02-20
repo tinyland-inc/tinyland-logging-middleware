@@ -1,5 +1,5 @@
 {
-  "name": "@tinyland-inc/tinyland-logging-middleware",
+  "name": "@tummycrypt/tinyland-logging-middleware",
   "version": "0.1.0",
   "description": "tRPC-compatible logging middleware with DI-based logger injection",
   "type": "module",
@@ -47,5 +47,9 @@
   },
   "engines": {
     "node": ">=22.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   }
 }
