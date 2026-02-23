@@ -1,28 +1,28 @@
-/**
- * tRPC-compatible logging middleware.
- *
- * Wraps every procedure call with structured start / success / error
- * log entries that include timing, session context, and client metadata.
- *
- * The logger is obtained from the DI configuration so the middleware
- * has zero hard-coded runtime dependencies.
- *
- * @packageDocumentation
- */
+
+
+
+
+
+
+
+
+
+
+
 
 import { getConfig } from './config.js';
 import type { LogContext } from './types.js';
 
-/**
- * Structured logging middleware for tRPC procedures.
- *
- * Logs:
- * - Procedure path and type on entry
- * - Session context (sessionId, userId) when present
- * - Client context (ipHash, deviceType, browser) when present
- * - Duration and success/failure on exit
- * - Error message and error type on failure (then re-throws)
- */
+
+
+
+
+
+
+
+
+
+
 export const loggingMiddleware = async (opts: {
 	ctx: Record<string, unknown>;
 	path?: string;
@@ -47,7 +47,7 @@ export const loggingMiddleware = async (opts: {
 		| null
 		| undefined;
 
-	// Build the start-of-call log context.
+	
 	const startContext: LogContext = {
 		component: 'trpc-middleware',
 		procedure: opts.path || 'unknown',
