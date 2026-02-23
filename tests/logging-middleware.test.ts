@@ -1,19 +1,19 @@
-/**
- * Tests for @tummycrypt/tinyland-logging-middleware
- *
- * Covers:
- *  1. configure / getConfig / resetConfig  (5 tests)
- *  2. loggingMiddleware — start, success, error logging  (15 tests)
- *  3. Session context logging  (8 tests)
- *  4. Client context logging  (8 tests)
- *  5. Error handling  (8 tests)
- *  6. createLogger  (10 tests)
- *  7. createScopedLogger alias  (3 tests)
- *  8. Duration measurement  (5 tests)
- *  9. Edge cases  (10 tests)
- * 10. Re-exports and public API surface  (8 tests)
- * 11. Duration with mocked Date.now  (3 tests)
- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import {
@@ -27,9 +27,9 @@ import {
 } from '../src/index.js';
 import type { Logger, LogContext, LogLevel, LoggingMiddlewareConfig } from '../src/index.js';
 
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
+
+
+
 
 function makeMockLogger(): Logger & {
 	debug: ReturnType<typeof vi.fn>;
@@ -62,9 +62,9 @@ function makeOpts(overrides: Record<string, unknown> = {}) {
 	};
 }
 
-// ---------------------------------------------------------------------------
-// Setup / Teardown
-// ---------------------------------------------------------------------------
+
+
+
 
 beforeEach(() => {
 	resetConfig();
@@ -75,15 +75,15 @@ afterEach(() => {
 	resetConfig();
 });
 
-// =========================================================================
-// 1. configure / getConfig / resetConfig  (5 tests)
-// =========================================================================
+
+
+
 
 describe('configure / getConfig / resetConfig', () => {
 	it('should return noop logger by default', () => {
 		const cfg = getConfig();
 		expect(cfg.logger).toBeDefined();
-		// Calling noop logger methods should not throw
+		
 		cfg.logger.debug('test');
 		cfg.logger.info('test');
 		cfg.logger.warn('test');
@@ -120,9 +120,9 @@ describe('configure / getConfig / resetConfig', () => {
 	});
 });
 
-// =========================================================================
-// 2. loggingMiddleware — logs start, success, error  (15 tests)
-// =========================================================================
+
+
+
 
 describe('loggingMiddleware — basic logging', () => {
 	it('should call logger.info on procedure start', async () => {
@@ -274,9 +274,9 @@ describe('loggingMiddleware — basic logging', () => {
 	});
 });
 
-// =========================================================================
-// 3. Session context logging  (8 tests)
-// =========================================================================
+
+
+
 
 describe('loggingMiddleware — session context', () => {
 	it('should include sessionId when present', async () => {
@@ -375,9 +375,9 @@ describe('loggingMiddleware — session context', () => {
 	});
 });
 
-// =========================================================================
-// 4. Client context logging  (8 tests)
-// =========================================================================
+
+
+
 
 describe('loggingMiddleware — client context', () => {
 	it('should include clientIpHash when present', async () => {
@@ -489,9 +489,9 @@ describe('loggingMiddleware — client context', () => {
 	});
 });
 
-// =========================================================================
-// 5. Error handling  (8 tests)
-// =========================================================================
+
+
+
 
 describe('loggingMiddleware — error handling', () => {
 	it('should re-throw the original Error after logging', async () => {
@@ -580,9 +580,9 @@ describe('loggingMiddleware — error handling', () => {
 		try {
 			await loggingMiddleware(opts);
 		} catch {
-			// expected
+			
 		}
-		// logger.error should have been called before we got here
+		
 		expect(mock.error).toHaveBeenCalledTimes(1);
 	});
 
@@ -599,9 +599,9 @@ describe('loggingMiddleware — error handling', () => {
 	});
 });
 
-// =========================================================================
-// 6. createLogger  (10 tests)
-// =========================================================================
+
+
+
 
 describe('createLogger', () => {
 	it('should return an object with debug method', () => {
@@ -699,9 +699,9 @@ describe('createLogger', () => {
 	});
 });
 
-// =========================================================================
-// 7. createScopedLogger alias  (3 tests)
-// =========================================================================
+
+
+
 
 describe('createScopedLogger', () => {
 	it('should be the same function as createLogger', () => {
@@ -730,9 +730,9 @@ describe('createScopedLogger', () => {
 	});
 });
 
-// =========================================================================
-// 8. Duration measurement  (5 tests)
-// =========================================================================
+
+
+
 
 describe('loggingMiddleware — duration measurement', () => {
 	it('should include a duration field in the success log', async () => {
@@ -779,12 +779,12 @@ describe('loggingMiddleware — duration measurement', () => {
 		const mock = makeMockLogger();
 		configure({ logger: mock });
 
-		// Mock Date.now to simulate time passing
+		
 		let callCount = 0;
 		const originalDateNow = Date.now;
 		vi.spyOn(Date, 'now').mockImplementation(() => {
 			callCount++;
-			// First call (start) returns 1000, second call (end) returns 1050
+			
 			return callCount === 1 ? 1000 : 1050;
 		});
 
@@ -799,9 +799,9 @@ describe('loggingMiddleware — duration measurement', () => {
 	});
 });
 
-// =========================================================================
-// 9. Edge cases  (10 tests)
-// =========================================================================
+
+
+
 
 describe('loggingMiddleware — edge cases', () => {
 	it('should default to "unknown" when path is undefined', async () => {
@@ -869,7 +869,7 @@ describe('loggingMiddleware — edge cases', () => {
 	});
 
 	it('should work with noop logger (no configure call)', async () => {
-		// resetConfig already called in beforeEach, so noop logger is active
+		
 		const opts = makeOpts();
 		const result = await loggingMiddleware(opts);
 		expect(result).toEqual({ ok: true });
@@ -905,9 +905,9 @@ describe('loggingMiddleware — edge cases', () => {
 	});
 });
 
-// =========================================================================
-// 10. Re-exports and public API surface  (8 tests)
-// =========================================================================
+
+
+
 
 describe('re-exports and public API surface', () => {
 	it('should export LogContext type (usable at runtime via type check)', () => {
@@ -948,9 +948,9 @@ describe('re-exports and public API surface', () => {
 	});
 });
 
-// =========================================================================
-// 11. Duration with mocked Date.now  (3 tests)
-// =========================================================================
+
+
+
 
 describe('loggingMiddleware — mocked Date.now durations', () => {
 	it('should record exact duration on error path via mocked Date.now', async () => {
